@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Addition Worksheet</title>
+        <style>
+            div {
+                border: 1px solid black;
+            }
+            body {
+                text-align: center;
+                min-width: 900px;
+                font-size: 65px;
+            }
+            #main {
+                margin: 0 auto;
+                background-repeat: no-repeat;
+                background-position: center;
+                width: 450px;
+                height: 550px;
+                padding-top: 3px;
+                float: left;
+                border-radius: 3px;
+            }
+            .tile {
+                width: 95px;
+                height: 95px;
+                background: #ffffff;
+                display: inline-block;
+                vertical-align: middle;
+                margin: 3px 0px;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            .hide {
+                visibility: hidden;
+            }
+            #problem {
+                float: left;
+                margin: 50px;
+            }
+            #display {
+                display: inline-block;
+            }
+        </style>
+        <script type="text/javascript" src="mathres/jquery-1.11.2.js"></script>
+        <script type="text/javascript" src="mathres/pics.js"></script>
+        <script type="text/javascript">
+            var maxSum = 10;
+            var problems;
+            var index;
+            var current;
+            var wrong = 0;
+
+            var loc = 'mathres/';
+            $(document).ready(function(){
+                var i = Math.floor((Math.random() * (pics.length)));
+                var background = "url(" + loc + pics[i] + ")";
+
+                problems = populateTiles(createArrayOfProblems(maxSum));
+                
+
+                nextProblem();
+
+                $( '#main' ).css({'background': background});
+
+                $( '.tile' ).on( "click", function(){
+                    if (isMatch( $(this).html() )) {
+                        wrong = 0;
+                        $( this ).css({'visibility': 'hidden'});
+
+                        if (problems.length > 0) {
+                            nextProblem();
+                        } else {
+                            alert("you win");
+                            $( "#problem" ).html("<button onclick='location.reload()'><h2>Try again</h2></button>");
+                        }
+                            
+                    } else {
+                        wrong++;
+                        if (wrong > 4) {
+                            alert("Take your time... Don't rush... and DON'T GUESS!");
+                        }
+                    }
+                });
+
+            });
+/*
+            document.addEventListener("DOMContentLoaded", function(event) { 
+                document.getElementById("main").style.background = "url(" + loc + "sm-" + pics[i] + ")";
+            });
+            document.getElementsByClassName("tile").onClick = function() {
+                alert('it works');
+            };
+*/
+        </script>
+    </head>
+    <body>
+        <div id="main">
+            <div class="tile" id="tile0">3</div>
+            <div class="tile" id="tile1"></div>
+            <div class="tile" id="tile2"></div>
+            <div class="tile" id="tile3"></div>
+
+            <div class="tile" id="tile4"></div>
+            <div class="tile" id="tile5"></div>
+            <div class="tile" id="tile6"></div>
+            <div class="tile" id="tile7"></div>
+
+            <div class="tile" id="tile8"></div>
+            <div class="tile" id="tile9"></div>
+            <div class="tile" id="tile10"></div>
+            <div class="tile" id="tile11"></div>
+
+            <div class="tile" id="tile12"></div>
+            <div class="tile" id="tile13"></div>
+            <div class="tile" id="tile14"></div>
+            <div class="tile" id="tile15"></div>
+
+            <div class="tile" id="tile16"></div>
+            <div class="tile" id="tile17"></div>
+            <div class="tile" id="tile18"></div>
+            <div class="tile" id="tile19"></div>
+        </div>
+        <div id="problem" style="text-align: right; padding-right: 10px; border: 0px;">
+            <span id="topNum"></span>
+            <br>+ <span id="bottomNum"></span>
+            <hr style="width: 50%; color: black;">
+        </div>
+    </body>
+</html>
